@@ -1,7 +1,13 @@
 package com.example.demo.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class WorkflowTemplate {
+    @Id
     private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String templateName;
     private String description;
     private int totalLevels;
@@ -11,8 +17,8 @@ public class WorkflowTemplate {
 
     }
 
-    public WorkflowTemplate(long id, String templateName, String description, int totalLevels, boolean active) {
-        this.id = id;
+    public WorkflowTemplate( String templateName, String description, int totalLevels, boolean active) {
+        
         this.templateName = templateName;
         this.description = description;
         this.totalLevels = totalLevels;
