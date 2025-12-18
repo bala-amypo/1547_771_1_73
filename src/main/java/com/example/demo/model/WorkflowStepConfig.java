@@ -1,24 +1,32 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class WorkflowStepConfig {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long templateld;
+
+    private long templateId;
     private int levelNumber;
     private String approverRole;
-    private boolean isFinalStep;
+    private boolean finalStep;
     private String instructions;
 
-    public  WorkflowStepConfig(){
-
+    public WorkflowStepConfig() {
     }
 
-    public WorkflowStepConfig(long id, long templateld, int levelNumber, String approverRole, boolean isFinalStep,
-            String instructions) {
-        this.id = id;
-        this.templateld = templateld;
+    public WorkflowStepConfig(long templateId, int levelNumber, String approverRole,
+                              boolean finalStep, String instructions) {
+        this.templateId = templateId;
         this.levelNumber = levelNumber;
         this.approverRole = approverRole;
-        this.isFinalStep = isFinalStep;
+        this.finalStep = finalStep;
         this.instructions = instructions;
     }
 
@@ -30,12 +38,12 @@ public class WorkflowStepConfig {
         this.id = id;
     }
 
-    public long getTemplateld() {
-        return templateld;
+    public long getTemplateId() {
+        return templateId;
     }
 
-    public void setTemplateld(long templateld) {
-        this.templateld = templateld;
+    public void setTemplateId(long templateId) {
+        this.templateId = templateId;
     }
 
     public int getLevelNumber() {
@@ -55,11 +63,11 @@ public class WorkflowStepConfig {
     }
 
     public boolean isFinalStep() {
-        return isFinalStep;
+        return finalStep;
     }
 
-    public void setFinalStep(boolean isFinalStep) {
-        this.isFinalStep = isFinalStep;
+    public void setFinalStep(boolean finalStep) {
+        this.finalStep = finalStep;
     }
 
     public String getInstructions() {
@@ -69,7 +77,4 @@ public class WorkflowStepConfig {
     public void setInstructions(String instructions) {
         this.instructions = instructions;
     }
-    
-    
-    
 }
