@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo1.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -78,3 +78,4 @@ public class WorkflowStepConfig {
         this.instructions = instructions;
     }
 }
+

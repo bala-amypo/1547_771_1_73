@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo1.controller;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.model.WorkflowStepConfig;
-import com.example.demo.service.WorkflowStepConfigService;
+import com.example.demo1.model.WorkflowStepConfig;
+import com.example.demo1.service.WorkflowStepConfigService;
 
 @RestController
 @RequestMapping("/workflowstepconfig")
