@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.model.WorkflowTemplate;
 
 @Repository
-public interface WorkflowTemplateRepository extends JpaRepository<WorkflowTemplate, Long> {
+public interface WorkflowTemplateRepository
+        extends JpaRepository<WorkflowTemplate, Long> {
 }
