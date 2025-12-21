@@ -1,4 +1,4 @@
-package com.example.demo.Service.impl;
+package com.example.demo.service.impl;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.WorkflowStepConfig;
 import com.example.demo.repository.WorkflowStepConfigRepository;
-import com.example.demo.Service.WorkflowStepConfigService;
+import com.example.demo.service.WorkflowStepConfigService;
 
 @Service
 public class WorkflowStepConfigImpl implements WorkflowStepConfigService {
@@ -23,12 +23,12 @@ public class WorkflowStepConfigImpl implements WorkflowStepConfigService {
 
     @Override
     public List<WorkflowStepConfig> getStepsForTemplate(Long templateId) {
-        List<WorkflowStepConfig> steps = 
+        List<WorkflowStepConfig> steps =
                 workflowStepConfigRepository.findByTemplateId(templateId);
 
         if (steps.isEmpty()) {
             throw new ResourceNotFoundException(
-                "No workflow steps found for template ID: " + templateId
+                    "No workflow steps found for template ID: " + templateId
             );
         }
 
