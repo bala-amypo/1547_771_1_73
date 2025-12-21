@@ -1,13 +1,13 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.WorkflowTemplate;
 import com.example.demo.service.WorkflowTemplateService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/workflow-templates")
+@RequestMapping("/api/templates")
 public class WorkflowTemplateController {
 
     private final WorkflowTemplateService service;
@@ -16,20 +16,26 @@ public class WorkflowTemplateController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<WorkflowTemplate> getAll() {
-        return service.getWorkflowTemplate();
-    }
-
     @PostMapping
-    public ResponseEntity<WorkflowTemplate> create(
-            @RequestBody WorkflowTemplate template) {
-        return ResponseEntity.status(201)
-                .body(service.createWorkflowTemplate(template));
+    public WorkflowTemplate create(@RequestBody WorkflowTemplate template) {
+        return service.createTemplate(template);
     }
 
     @GetMapping("/{id}")
-    public WorkflowTemplate get(@PathVariable long id) {
-        return service.getById(id);
+    public WorkflowTemplate getById(@PathVariable Long id) {
+        return service.getTemplateById(id)
+                .orElseThrow(() -> new RuntimeException("Template not found"));
+    }
+
+    @PutMapping("/{id}")
+    public WorkflowTemplate update(
+            @PathVariable Long id,
+            @RequestBody WorkflowTemplate template) {
+        return service.updateTemplate(id, template);
+    }
+
+    @GetMapping
+    public List<WorkflowTemplate> getAll() {
+        return service.getAllTemplates();
     }
 }

@@ -1,13 +1,13 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.WorkflowStepConfig;
 import com.example.demo.service.WorkflowStepConfigService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/workflow-step-config")
+@RequestMapping("/api/steps")
 public class WorkflowStepConfigController {
 
     private final WorkflowStepConfigService service;
@@ -17,14 +17,12 @@ public class WorkflowStepConfigController {
     }
 
     @PostMapping
-    public ResponseEntity<WorkflowStepConfig> create(
-            @RequestBody WorkflowStepConfig config) {
-        return ResponseEntity.status(201).body(service.createStep(config));
+    public WorkflowStepConfig create(@RequestBody WorkflowStepConfig step) {
+        return service.createStep(step);
     }
 
     @GetMapping("/template/{templateId}")
-    public List<WorkflowStepConfig> getByTemplate(
-            @PathVariable Long templateId) {
+    public List<WorkflowStepConfig> getByTemplate(@PathVariable Long templateId) {
         return service.getStepsForTemplate(templateId);
     }
 }
