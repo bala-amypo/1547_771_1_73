@@ -1,28 +1,20 @@
-package com.example.demo.Service.impl;
+package com.example.demo.service.impl;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Service.ApprovalRequestService;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.ApprovalRequest;
 import com.example.demo.repository.ApprovalRequestRepository;
-import com.example.demo.repository.ApprovalActionRepository;
-import com.example.demo.repository.WorkflowTemplateRepository;
-import com.example.demo.repository.WorkflowStepConfigRepository;
+import com.example.demo.service.ApprovalRequestService;
 
 @Service
 public class ApprovalRequestServiceImpl implements ApprovalRequestService {
 
     private final ApprovalRequestRepository approvalRequestRepository;
 
-    public ApprovalRequestServiceImpl(
-            ApprovalRequestRepository approvalRequestRepository,
-            WorkflowStepConfigRepository workflowStepConfigRepository,
-            WorkflowTemplateRepository workflowTemplateRepository,
-            ApprovalActionRepository approvalActionRepository) {
-
+    public ApprovalRequestServiceImpl(ApprovalRequestRepository approvalRequestRepository) {
         this.approvalRequestRepository = approvalRequestRepository;
     }
 
@@ -43,8 +35,7 @@ public class ApprovalRequestServiceImpl implements ApprovalRequestService {
 
         if (requests.isEmpty()) {
             throw new ResourceNotFoundException(
-                "No requests found for requesterId: " + requesterId
-            );
+                    "No requests found for requesterId " + requesterId);
         }
         return requests;
     }

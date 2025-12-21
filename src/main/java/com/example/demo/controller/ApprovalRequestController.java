@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.Service.ApprovalRequestService;
 import com.example.demo.model.ApprovalRequest;
+import com.example.demo.service.ApprovalRequestService;
 
 @RestController
 @RequestMapping("/api/requests")
@@ -18,18 +18,13 @@ public class ApprovalRequestController {
         this.approvalRequestService = approvalRequestService;
     }
 
-    // POST /
     @PostMapping
     public ResponseEntity<ApprovalRequest> createRequest(
             @RequestBody ApprovalRequest request) {
-
-        ApprovalRequest created =
-                approvalRequestService.createRequest(request);
-
-        return ResponseEntity.status(201).body(created);
+        return ResponseEntity.status(201)
+                .body(approvalRequestService.createRequest(request));
     }
 
-    // GET / OR GET /?requesterId=
     @GetMapping
     public ResponseEntity<List<ApprovalRequest>> getRequests(
             @RequestParam(required = false) Long requesterId) {
@@ -38,8 +33,6 @@ public class ApprovalRequestController {
             return ResponseEntity.ok(
                     approvalRequestService.getRequestsByRequester(requesterId));
         }
-
-        return ResponseEntity.ok(
-                approvalRequestService.getAllRequests());
+        return ResponseEntity.ok(approvalRequestService.getAllRequests());
     }
 }

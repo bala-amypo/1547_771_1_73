@@ -9,7 +9,7 @@ import com.example.demo.model.WorkflowStepConfig;
 import com.example.demo.service.WorkflowStepConfigService;
 
 @RestController
-@RequestMapping("/workflowstepconfig")
+@RequestMapping("/api/workflow-step-configs")
 public class WorkflowStepConfigController {
 
     private final WorkflowStepConfigService workflowStepConfigService;
@@ -22,19 +22,15 @@ public class WorkflowStepConfigController {
     public ResponseEntity<List<WorkflowStepConfig>> getByTemplate(
             @PathVariable Long templateId) {
 
-        List<WorkflowStepConfig> steps =
-                workflowStepConfigService.getStepsForTemplate(templateId);
-
-        return ResponseEntity.ok(steps);
+        return ResponseEntity.ok(
+                workflowStepConfigService.getStepsForTemplate(templateId));
     }
 
     @PostMapping
     public ResponseEntity<WorkflowStepConfig> create(
             @RequestBody WorkflowStepConfig workflowStepConfig) {
 
-        WorkflowStepConfig saved =
-                workflowStepConfigService.createStep(workflowStepConfig);
-
-        return ResponseEntity.status(201).body(saved);
+        return ResponseEntity.status(201)
+                .body(workflowStepConfigService.createStep(workflowStepConfig));
     }
 }

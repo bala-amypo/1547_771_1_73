@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,25 +9,26 @@ import com.example.demo.model.WorkflowTemplate;
 import com.example.demo.service.WorkflowTemplateService;
 
 @RestController
-@RequestMapping("/workflowtemplate")
+@RequestMapping("/api/workflow-templates")
 public class WorkflowTemplateController {
 
-    @Autowired
-    private WorkflowTemplateService workflowTemplateService;
+    private final WorkflowTemplateService workflowTemplateService;
 
-    @GetMapping
-    public List<WorkflowTemplate> getAll() {
-        return workflowTemplateService.getWorkflowTemplate();
+    public WorkflowTemplateController(WorkflowTemplateService workflowTemplateService) {
+        this.workflowTemplateService = workflowTemplateService;
     }
 
     @PostMapping
     public ResponseEntity<WorkflowTemplate> create(
             @RequestBody WorkflowTemplate workflowTemplate) {
 
-        WorkflowTemplate created =
-                workflowTemplateService.createWorkflowTemplate(workflowTemplate);
+        return ResponseEntity.status(201)
+                .body(workflowTemplateService.createWorkflowTemplate(workflowTemplate));
+    }
 
-        return ResponseEntity.status(201).body(created);
+    @GetMapping
+    public List<WorkflowTemplate> getAll() {
+        return workflowTemplateService.getWorkflowTemplate();
     }
 
     @GetMapping("/{id}")
