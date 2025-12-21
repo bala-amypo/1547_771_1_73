@@ -1,86 +1,44 @@
-// package com.example.demo.model;
+package com.example.demo.model;
 
-// import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
-// public class ApprovalAction {
-//     private long id;
-//     private long requestid;
-//     private long approverid;
-//     private int levelNumber;
-//     private String action;
-//     private String comments;
-//     private LocalDateTime actionDate;
+import jakarta.persistence.*;
 
-//     public  ApprovalAction(){
+@Entity
+@Table(name = "approval_actions")
+public class ApprovalAction {
 
-//     }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     public ApprovalAction(long id, long requestid, long approverid, int levelNumber, String action, String comments,
-//             LocalDateTime actionDate) {
-//         this.id = id;
-//         this.requestid = requestid;
-//         this.approverid = approverid;
-//         this.levelNumber = levelNumber;
-//         this.action = action;
-//         this.comments = comments;
-//         this.actionDate = actionDate;
-//     }
+    private Long requestId;
+    private Long approverId;
+    private Integer levelNumber;
+    private String action; // APPROVED / REJECTED
+    private String comments;
+    private LocalDateTime actionDate;
 
-//     public long getId() {
-//         return id;
-//     }
+    public ApprovalAction() {
+        this.actionDate = LocalDateTime.now();
+    }
 
-//     public void setId(long id) {
-//         this.id = id;
-//     }
+    // getters and setters
+    public Long getId() { return id; }
+    public Long getRequestId() { return requestId; }
+    public void setRequestId(Long requestId) { this.requestId = requestId; }
 
-//     public long getRequestid() {
-//         return requestid;
-//     }
+    public Long getApproverId() { return approverId; }
+    public void setApproverId(Long approverId) { this.approverId = approverId; }
 
-//     public void setRequestid(long requestid) {
-//         this.requestid = requestid;
-//     }
+    public Integer getLevelNumber() { return levelNumber; }
+    public void setLevelNumber(Integer levelNumber) { this.levelNumber = levelNumber; }
 
-//     public long getApproverid() {
-//         return approverid;
-//     }
+    public String getAction() { return action; }
+    public void setAction(String action) { this.action = action; }
 
-//     public void setApproverid(long approverid) {
-//         this.approverid = approverid;
-//     }
+    public String getComments() { return comments; }
+    public void setComments(String comments) { this.comments = comments; }
 
-//     public int getLevelNumber() {
-//         return levelNumber;
-//     }
-
-//     public void setLevelNumber(int levelNumber) {
-//         this.levelNumber = levelNumber;
-//     }
-
-//     public String getAction() {
-//         return action;
-//     }
-
-//     public void setAction(String action) {
-//         this.action = action;
-//     }
-
-//     public String getComments() {
-//         return comments;
-//     }
-
-//     public void setComments(String comments) {
-//         this.comments = comments;
-//     }
-
-//     public LocalDateTime getActionDate() {
-//         return actionDate;
-//     }
-
-//     public void setActionDate(LocalDateTime actionDate) {
-//         this.actionDate = actionDate;
-//     }
-
-    
-// }
+    public LocalDateTime getActionDate() { return actionDate; }
+}
