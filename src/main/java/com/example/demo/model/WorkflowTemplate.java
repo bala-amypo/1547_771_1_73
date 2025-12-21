@@ -3,32 +3,68 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(
+        name = "workflow_templates",
+        uniqueConstraints = @UniqueConstraint(columnNames = "templateName")
+)
 public class WorkflowTemplate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
+    @Column(nullable = false)
     private String templateName;
+
     private String description;
-    private int totalLevels;
-    private boolean active;
+
+    @Column(nullable = false)
+    private Integer totalLevels;
+
+    @Column(nullable = false)
+    private Boolean active;
 
     public WorkflowTemplate() {}
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
+    // getters and setters
 
-    public String getTemplateName() { return templateName; }
-    public void setTemplateName(String templateName) { this.templateName = templateName; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getTemplateName() {
+        return templateName;
+    }
 
-    public int getTotalLevels() { return totalLevels; }
-    public void setTotalLevels(int totalLevels) { this.totalLevels = totalLevels; }
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
 
-   
-    public boolean isActive() { return active; }
-    public void setActive(boolean active) { this.active = active; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getTotalLevels() {
+        return totalLevels;
+    }
+
+    public void setTotalLevels(Integer totalLevels) {
+        this.totalLevels = totalLevels;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
