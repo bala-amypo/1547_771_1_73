@@ -1,12 +1,12 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import java.util.List;
+// import java.util.List;
 
-import com.example.demo.model.WorkflowStepConfig;
+// import com.example.demo.model.WorkflowStepConfig;
 
-public interface WorkflowStepConfigService {
+// public interface WorkflowStepConfigService {
 
-    WorkflowStepConfig createStep(WorkflowStepConfig workflowStepConfig);
+//     WorkflowStepConfig createStep(WorkflowStepConfig workflowStepConfig);
 
-    List<WorkflowStepConfig> getStepsForTemplate(Long templateId);
-}
+//     List<WorkflowStepConfig> getStepsForTemplate(Long templateId);
+// }
