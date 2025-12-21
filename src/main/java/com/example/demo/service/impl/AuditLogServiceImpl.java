@@ -1,8 +1,8 @@
-package com.example.demo.Service.impl;
+package com.example.demo.service.impl;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import com.example.demo.Service.AuditLogService;
+import com.example.demo.service.AuditLogService;
 import com.example.demo.model.AuditLogRecord;
 import com.example.demo.repository.AuditLogRecordRepository;
 
