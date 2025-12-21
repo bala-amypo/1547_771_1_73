@@ -29,8 +29,9 @@ public class WorkflowStepConfigServiceImpl implements WorkflowStepConfigService 
 
         if (steps.isEmpty()) {
             throw new ResourceNotFoundException(
-                    "No steps found for templateId " + templateId);
+                    "No workflow steps found for template ID: " + templateId);
         }
+
         return steps;
     }
 }
