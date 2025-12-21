@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.WorkflowTemplate;
-import com.example.demo.Service.WorkflowTemplateService;
+import com.example.demo.service.WorkflowTemplateService;
 
 @RestController
 @RequestMapping("/workflowtemplate")
@@ -22,8 +22,12 @@ public class WorkflowTemplateController {
     }
 
     @PostMapping
-    public ResponseEntity<WorkflowTemplate> create(@RequestBody WorkflowTemplate workflowTemplate) {
-        WorkflowTemplate created = workflowTemplateService.createWorkflowTemplate(workflowTemplate);
+    public ResponseEntity<WorkflowTemplate> create(
+            @RequestBody WorkflowTemplate workflowTemplate) {
+
+        WorkflowTemplate created =
+                workflowTemplateService.createWorkflowTemplate(workflowTemplate);
+
         return ResponseEntity.status(201).body(created);
     }
 
@@ -33,7 +37,10 @@ public class WorkflowTemplateController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable long id, @RequestBody WorkflowTemplate workflowTemplate) {
+    public ResponseEntity<String> update(
+            @PathVariable long id,
+            @RequestBody WorkflowTemplate workflowTemplate) {
+
         workflowTemplateService.updateWorkflowTemplate(id, workflowTemplate);
         return ResponseEntity.ok("Update successful");
     }

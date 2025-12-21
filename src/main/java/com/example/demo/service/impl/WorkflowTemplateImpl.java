@@ -1,4 +1,4 @@
-package com.example.demo.Service.impl;
+package com.example.demo.service.impl;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.WorkflowTemplate;
 import com.example.demo.repository.WorkflowTemplateRepository;
-import com.example.demo.Service.WorkflowTemplateService;
+import com.example.demo.service.WorkflowTemplateService;
 
 @Service
 public class WorkflowTemplateServiceImpl implements WorkflowTemplateService {
@@ -29,13 +29,20 @@ public class WorkflowTemplateServiceImpl implements WorkflowTemplateService {
     @Override
     public WorkflowTemplate getById(long id) {
         return workflowTemplateRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("WorkflowTemplate not found with id " + id));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "WorkflowTemplate not found with id " + id
+                        ));
     }
 
     @Override
     public WorkflowTemplate updateWorkflowTemplate(long id, WorkflowTemplate workflowTemplate) {
+
         WorkflowTemplate existing = workflowTemplateRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("WorkflowTemplate not found with id " + id));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "WorkflowTemplate not found with id " + id
+                        ));
 
         existing.setTemplateName(workflowTemplate.getTemplateName());
         existing.setDescription(workflowTemplate.getDescription());
