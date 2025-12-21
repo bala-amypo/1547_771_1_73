@@ -66,4 +66,3 @@ public class WorkflowTemplate {
         this.active = active;
     }
 }
-
