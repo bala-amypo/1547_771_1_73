@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.WorkflowTemplate;
-import com.example.demo.Service.WorkflowTemplateService;
+import com.example.demo.service.WorkflowTemplateService;
 
 @RestController
 @RequestMapping("/workflowtemplate")
