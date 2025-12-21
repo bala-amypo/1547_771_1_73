@@ -29,20 +29,13 @@ public class WorkflowTemplateServiceImpl implements WorkflowTemplateService {
     @Override
     public WorkflowTemplate getById(long id) {
         return workflowTemplateRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "WorkflowTemplate not found with id " + id
-                        ));
+                .orElseThrow(() -> new ResourceNotFoundException("WorkflowTemplate not found with id " + id));
     }
 
     @Override
     public WorkflowTemplate updateWorkflowTemplate(long id, WorkflowTemplate workflowTemplate) {
-
         WorkflowTemplate existing = workflowTemplateRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "WorkflowTemplate not found with id " + id
-                        ));
+                .orElseThrow(() -> new ResourceNotFoundException("WorkflowTemplate not found with id " + id));
 
         existing.setTemplateName(workflowTemplate.getTemplateName());
         existing.setDescription(workflowTemplate.getDescription());
