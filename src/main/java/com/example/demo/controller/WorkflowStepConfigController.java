@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.WorkflowStepConfig;
-import com.example.demo.Service.WorkflowStepConfigService;
+import com.example.demo.service.WorkflowStepConfigService;
 
 @RestController
 @RequestMapping("/workflowstepconfig")
@@ -38,6 +38,3 @@ public class WorkflowStepConfigController {
         return ResponseEntity.status(201).body(saved);
     }
 }
-
-
-
