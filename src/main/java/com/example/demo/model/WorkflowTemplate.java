@@ -1,68 +1,69 @@
-// package com.example.demo.model;
+package com.example.demo.model;
 
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-// public class WorkflowTemplate {
-//     @Id
-//     private long id;
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private String templateName;
-//     private String description;
-//     private int totalLevels;
-//     private boolean active;
+@Entity
+public class WorkflowTemplate {
 
-//     public WorkflowTemplate(){
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-//     }
+    private String templateName;
+    private String description;
+    private int totalLevels;
+    private boolean active;
 
-//     public WorkflowTemplate( String templateName, String description, int totalLevels, boolean active) {
-        
-//         this.templateName = templateName;
-//         this.description = description;
-//         this.totalLevels = totalLevels;
-//         this.active = active;
-//     }
+    public WorkflowTemplate() {}
 
-//     public long getId() {
-//         return id;
-//     }
+    public WorkflowTemplate(String templateName, String description, int totalLevels, boolean active) {
+        this.templateName = templateName;
+        this.description = description;
+        this.totalLevels = totalLevels;
+        this.active = active;
+    }
 
-//     public void setId(long id) {
-//         this.id = id;
-//     }
+    public long getId() {
+        return id;
+    }
 
-//     public String getTemplateName() {
-//         return templateName;
-//     }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-//     public void setTemplateName(String templateName) {
-//         this.templateName = templateName;
-//     }
+    public String getTemplateName() {
+        return templateName;
+    }
 
-//     public String getDescription() {
-//         return description;
-//     }
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
 
-//     public void setDescription(String description) {
-//         this.description = description;
-//     }
+    public String getDescription() {
+        return description;
+    }
 
-//     public int getTotalLevels() {
-//         return totalLevels;
-//     }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-//     public void setTotalLevels(int totalLevels) {
-//         this.totalLevels = totalLevels;
-//     }
+    public int getTotalLevels() {
+        return totalLevels;
+    }
 
-//     public boolean isActive() {
-//         return active;
-//     }
+    public void setTotalLevels(int totalLevels) {
+        this.totalLevels = totalLevels;
+    }
 
-//     public void setActive(boolean active) {
-//         this.active = active;
-//     }
-    
-// }
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+}
+
