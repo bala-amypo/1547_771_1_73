@@ -1,65 +1,32 @@
-// package com.example.demo.model;
+package com.example.demo.model;
 
-// import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-// public class AuditLogRecord {
-//     private long id;
-//     private long requestid;
-//     private String eventType;
-//     private String details;
-//     private LocalDateTime loggedAt;
+@Entity
+@Table(name = "audit_log_records")
+public class AuditLogRecord {
 
-//     public  AuditLogRecord(){
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     }
+    private Long requestId;
+    private String eventType;
 
-//     public AuditLogRecord(long id, long requestid, String eventType, String details, LocalDateTime loggedAt) {
-//         this.id = id;
-//         this.requestid = requestid;
-//         this.eventType = eventType;
-//         this.details = details;
-//         this.loggedAt = loggedAt;
-//     }
+    @Column(length = 1000)
+    private String details;
 
-//     public long getId() {
-//         return id;
-//     }
+    private LocalDateTime loggedAt;
 
-//     public void setId(long id) {
-//         this.id = id;
-//     }
+    public AuditLogRecord() {}
 
-//     public long getRequestid() {
-//         return requestid;
-//     }
+    public AuditLogRecord(Long requestId, String eventType, String details) {
+        this.requestId = requestId;
+        this.eventType = eventType;
+        this.details = details;
+        this.loggedAt = LocalDateTime.now();
+    }
 
-//     public void setRequestid(long requestid) {
-//         this.requestid = requestid;
-//     }
-
-//     public String getEventType() {
-//         return eventType;
-//     }
-
-//     public void setEventType(String eventType) {
-//         this.eventType = eventType;
-//     }
-
-//     public String getDetails() {
-//         return details;
-//     }
-
-//     public void setDetails(String details) {
-//         this.details = details;
-//     }
-
-//     public LocalDateTime getLoggedAt() {
-//         return loggedAt;
-//     }
-
-//     public void setLoggedAt(LocalDateTime loggedAt) {
-//         this.loggedAt = loggedAt;
-//     }
-
-    
-// }
+    // getters and setters
+}
