@@ -1,12 +1,13 @@
-package com.example.demo.Service.impl;
+package com.example.demo.service.impl;
 
 import org.springframework.stereotype.Service;
-import com.example.demo.Service.UserService;
+
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
