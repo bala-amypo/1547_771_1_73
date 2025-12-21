@@ -1,45 +1,60 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "approval_actions")
 public class ApprovalAction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long requestId;
-    private Long approverId;
     private Integer levelNumber;
     private String action;
-    private String comments;
-    private LocalDateTime actionDate;
+    private Long approverId;
 
-    public ApprovalAction() {
-        this.actionDate = LocalDateTime.now();
+    // ===== getters & setters =====
+
+    public Long getId() {
+        return id;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getRequestId() { return requestId; }
-    public void setRequestId(Long requestId) { this.requestId = requestId; }
+    public Long getRequestId() {
+        return requestId;
+    }
 
-    public Long getApproverId() { return approverId; }
-    public void setApproverId(Long approverId) { this.approverId = approverId; }
+    public void setRequestId(long requestId) {
+        this.requestId = requestId;
+    }
 
-    public Integer getLevelNumber() { return levelNumber; }
-    public void setLevelNumber(Integer levelNumber) { this.levelNumber = levelNumber; }
+    public int getLevelNumber() {
+        return levelNumber;
+    }
 
-    public String getAction() { return action; }
-    public void setAction(String action) { this.action = action; }
+    public void setLevelNumber(int levelNumber) {
+        this.levelNumber = levelNumber;
+    }
 
-    public String getComments() { return comments; }
-    public void setComments(String comments) { this.comments = comments; }
+    public String getAction() {
+        return action;
+    }
 
-    public LocalDateTime getActionDate() { return actionDate; }
-    public void setActionDate(LocalDateTime actionDate) { this.actionDate = actionDate; }
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public Long getApproverId() {
+        return approverId;
+    }
+
+    public void setApproverId(long approverId) {
+        this.approverId = approverId;
+    }
 }

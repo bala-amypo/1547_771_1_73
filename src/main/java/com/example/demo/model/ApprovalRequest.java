@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,44 +12,92 @@ public class ApprovalRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Long templateId;
+
+    @Column(nullable = false)
     private Long requesterId;
+
     private String requestTitle;
 
     @Lob
+    @Column(nullable = false)
     private String requestPayloadJson;
 
+    @Column(nullable = false)
     private String status;
+
+    @Column(nullable = false)
     private Integer currentLevel;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    public ApprovalRequest() {
-        this.status = "PENDING";
-        this.createdAt = LocalDateTime.now();
-        this.currentLevel = 1;
+    public ApprovalRequest() {}
+
+    // getters and setters
+
+    public Long getId() {
+        return id;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getTemplateId() {
+        return templateId;
+    }
 
-    public Long getTemplateId() { return templateId; }
-    public void setTemplateId(Long templateId) { this.templateId = templateId; }
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
+    }
 
-    public Long getRequesterId() { return requesterId; }
-    public void setRequesterId(Long requesterId) { this.requesterId = requesterId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getRequestTitle() { return requestTitle; }
-    public void setRequestTitle(String requestTitle) { this.requestTitle = requestTitle; }
+    public Long getRequesterId() {
+        return requesterId;
+    }
 
-    public String getRequestPayloadJson() { return requestPayloadJson; }
-    public void setRequestPayloadJson(String requestPayloadJson) { this.requestPayloadJson = requestPayloadJson; }
+    public void setRequesterId(Long requesterId) {
+        this.requesterId = requesterId;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getRequestTitle() {
+        return requestTitle;
+    }
 
-    public Integer getCurrentLevel() { return currentLevel; }
-    public void setCurrentLevel(Integer currentLevel) { this.currentLevel = currentLevel; }
+    public void setRequestTitle(String requestTitle) {
+        this.requestTitle = requestTitle;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public String getRequestPayloadJson() {
+        return requestPayloadJson;
+    }
+
+    public void setRequestPayloadJson(String requestPayloadJson) {
+        this.requestPayloadJson = requestPayloadJson;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Integer getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(Integer currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }
