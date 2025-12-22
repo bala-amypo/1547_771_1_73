@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.WorkflowTemplate;
+import com.example.demo.entity.WorkflowTemplate;
 
 import java.util.List;
 import java.util.Optional;

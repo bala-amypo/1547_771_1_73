@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.WorkflowStepConfig;
+import com.example.demo.entity.WorkflowStepConfig;
 
 import java.util.List;
 
