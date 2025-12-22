@@ -1,5 +1,4 @@
-package com.example.demo.model;
-
+package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,69 +9,29 @@ public class WorkflowStepConfig {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long templateId;
-
-    @Column(nullable = false)
+    private Long templateId;     // ❗ MUST be Long, NOT @ManyToOne
     private Integer levelNumber;
-
-    @Column(nullable = false)
     private String approverRole;
-
-    @Column(nullable = false)
     private Boolean isFinalStep;
-
     private String instructions;
 
     public WorkflowStepConfig() {}
 
-    // getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getTemplateId() { return templateId; }
+    public void setTemplateId(Long templateId) { this.templateId = templateId; }
 
-    public Long getTemplateId() {
-        return templateId;
-    }
+    public Integer getLevelNumber() { return levelNumber; }
+    public void setLevelNumber(Integer levelNumber) { this.levelNumber = levelNumber; }
 
-    public void setTemplateId(Long templateId) {
-        this.templateId = templateId;
-    }
+    public String getApproverRole() { return approverRole; }
+    public void setApproverRole(String approverRole) { this.approverRole = approverRole; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Boolean getIsFinalStep() { return isFinalStep; }
+    public void setIsFinalStep(Boolean isFinalStep) { this.isFinalStep = isFinalStep; }
 
-    public Integer getLevelNumber() {
-        return levelNumber;
-    }
-
-    public void setLevelNumber(Integer levelNumber) {
-        this.levelNumber = levelNumber;
-    }
-
-    public String getApproverRole() {
-        return approverRole;
-    }
-
-    public void setApproverRole(String approverRole) {
-        this.approverRole = approverRole;
-    }
-
-    public Boolean getIsFinalStep() {
-        return isFinalStep;
-    }
-
-    public void setIsFinalStep(Boolean isFinalStep) {
-        this.isFinalStep = isFinalStep;
-    }
-
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
+    public String getInstructions() { return instructions; }
+    public void setInstructions(String instructions) { this.instructions = instructions; }
 }

@@ -1,28 +1,31 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-
-import java.util.List;
+import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
-    private String password;
     private String email;
-    private boolean enabled;
+    private String password;
 
-    @Transient
-    private List<Role> roles;   // 👈 REQUIRED by tests
-
-    // ===== getters & setters =====
+    @ManyToMany
+    private Set<Role> roles;
+    public User() {
+    }
+    public User(Long id, String username, String email, String password, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
@@ -40,37 +43,27 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
- 
-    public void setPassword(String password) {
-        this.password = password;
-    }
- 
     public String getEmail() {
         return email;
     }
- 
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
- 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public String getPassword() {
+        return password;
     }
 
-    // ===== ROLES =====
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }
