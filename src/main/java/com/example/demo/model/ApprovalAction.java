@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "approval_actions")
 public class ApprovalAction {
 
     @Id
@@ -12,16 +13,19 @@ public class ApprovalAction {
 
     private Long requestId;
     private Long approverId;
-
-    private Integer level;      
+    private Integer level;
     private String action;
     private String comments;
     private LocalDateTime actionDate;
 
+    @PrePersist
+    protected void onCreate() {
+        this.actionDate = LocalDateTime.now();
+    }
+
     public ApprovalAction() {}
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     public Long getRequestId() { return requestId; }
     public void setRequestId(Long requestId) { this.requestId = requestId; }
@@ -39,5 +43,4 @@ public class ApprovalAction {
     public void setComments(String comments) { this.comments = comments; }
 
     public LocalDateTime getActionDate() { return actionDate; }
-    public void setActionDate(LocalDateTime actionDate) { this.actionDate = actionDate; }
 }

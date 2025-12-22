@@ -1,4 +1,5 @@
 package com.example.demo.entity;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -21,11 +22,14 @@ public class ApprovalRequest {
     private Integer currentLevel;
     private LocalDateTime createdAt;
 
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
     public ApprovalRequest() {}
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
     public Long getTemplateId() { return templateId; }
     public void setTemplateId(Long templateId) { this.templateId = templateId; }
 
@@ -45,5 +49,4 @@ public class ApprovalRequest {
     public void setCurrentLevel(Integer currentLevel) { this.currentLevel = currentLevel; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
