@@ -1,41 +1,41 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.WorkflowTemplate;
+import com.example.demo.entity.WorkflowTemplate;
 import com.example.demo.service.WorkflowTemplateService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/templates")
 public class WorkflowTemplateController {
 
-    private final WorkflowTemplateService service;
+    private final WorkflowTemplateService workflowTemplateService;
 
-    public WorkflowTemplateController(WorkflowTemplateService service) {
-        this.service = service;
+    public WorkflowTemplateController(WorkflowTemplateService workflowTemplateService) {
+        this.workflowTemplateService = workflowTemplateService;
     }
 
     @PostMapping
-    public WorkflowTemplate create(@RequestBody WorkflowTemplate template) {
-        return service.createTemplate(template);
+    public WorkflowTemplate createTemplate(@RequestBody WorkflowTemplate template) {
+        return workflowTemplateService.createTemplate(template);
     }
 
     @GetMapping("/{id}")
-    public WorkflowTemplate getById(@PathVariable Long id) {
-        return service.getTemplateById(id)
-                .orElseThrow(() -> new RuntimeException("Template not found"));
-    }
-
-    @PutMapping("/{id}")
-    public WorkflowTemplate update(
-            @PathVariable Long id,
-            @RequestBody WorkflowTemplate template) {
-        return service.updateTemplate(id, template);
+    public Optional<WorkflowTemplate> getTemplateById(@PathVariable Long id) {
+        return workflowTemplateService.getTemplateById(id);
     }
 
     @GetMapping
-    public List<WorkflowTemplate> getAll() {
-        return service.getAllTemplates();
+    public List<WorkflowTemplate> getAllTemplates() {
+        return workflowTemplateService.getAllTemplates();
+    }
+
+    @PutMapping("/{id}")
+    public WorkflowTemplate updateTemplate(
+            @PathVariable Long id,
+            @RequestBody WorkflowTemplate template) {
+        return workflowTemplateService.updateTemplate(id, template);
     }
 }

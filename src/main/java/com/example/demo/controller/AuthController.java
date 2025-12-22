@@ -1,11 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.RegisterRequest;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.model.User;
+import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
-import com.example.demo.security.JwtTokenProvider;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,37 +10,30 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserService userService;
-    private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthController(UserService userService, JwtTokenProvider jwtTokenProvider) {
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+    public ResponseEntity<String> register(@RequestBody User user) {
 
-        userService.registerUser(user, request.getRole());
-        return "REGISTER_OK";
+        userService.registerUser(user, "USER");
+
+        return ResponseEntity.ok("User registered successfully");
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        User user = userService.findByUsername(request.getUsername());
+    public ResponseEntity<String> login(
+            @RequestParam String username,
+            @RequestParam String password) {
 
-        if (user != null &&
-            userService.checkPassword(request.getPassword(), user.getPassword())) {
+        User user = userService.findByUsername(username);
 
-            
-            String token = jwtTokenProvider.generateToken(user.getUsername());
-            return new AuthResponse(token);
+        if (!user.getPassword().equals(password)) {
+            throw new RuntimeException("Invalid username or password");
         }
 
-        return new AuthResponse("invalid-login");
+        return ResponseEntity.ok("Login successful (No Encoder, No JWT)");
     }
 }
-

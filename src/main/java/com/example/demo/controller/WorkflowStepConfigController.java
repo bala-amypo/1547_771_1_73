@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.WorkflowStepConfig;
+import com.example.demo.entity.WorkflowStepConfig;
 import com.example.demo.service.WorkflowStepConfigService;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,19 +10,19 @@ import java.util.List;
 @RequestMapping("/api/steps")
 public class WorkflowStepConfigController {
 
-    private final WorkflowStepConfigService service;
+    private final WorkflowStepConfigService workflowStepConfigService;
 
-    public WorkflowStepConfigController(WorkflowStepConfigService service) {
-        this.service = service;
+    public WorkflowStepConfigController(WorkflowStepConfigService workflowStepConfigService) {
+        this.workflowStepConfigService = workflowStepConfigService;
     }
 
     @PostMapping
-    public WorkflowStepConfig create(@RequestBody WorkflowStepConfig step) {
-        return service.createStep(step);
+    public WorkflowStepConfig createStep(@RequestBody WorkflowStepConfig step) {
+        return workflowStepConfigService.createStep(step);
     }
 
     @GetMapping("/template/{templateId}")
-    public List<WorkflowStepConfig> getByTemplate(@PathVariable Long templateId) {
-        return service.getStepsForTemplate(templateId);
+    public List<WorkflowStepConfig> getStepsForTemplate(@PathVariable Long templateId) {
+        return workflowStepConfigService.getStepsForTemplate(templateId);
     }
 }
