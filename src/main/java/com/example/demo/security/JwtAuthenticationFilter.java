@@ -1,13 +1,3 @@
-The error occurs because Spring cannot find a bean for JwtAuthenticationFilter. Even though the class exists, Spring doesn't know it should manage it unless you add the @Component annotation to the class.
-
-To fix this, update your JwtAuthenticationFilter.java in the com.example.demo.security package:
-
-Updated JwtAuthenticationFilter.java
-code
-Java
-download
-content_copy
-expand_less
 package com.example.demo.security;
 
 import jakarta.servlet.FilterChain;
