@@ -1,8 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.ApprovalAction;
+import com.example.demo.model.ApprovalAction;
+
+import java.util.List;
 
 public interface ApprovalActionService {
 
-    ApprovalAction recordAction(ApprovalAction action);
+    ApprovalAction saveAction(ApprovalAction action);
+
+    List<ApprovalAction> getActionsByLevelAndAction(Integer level, String action);
+
+    List<ApprovalAction> getAllActions();
 }
