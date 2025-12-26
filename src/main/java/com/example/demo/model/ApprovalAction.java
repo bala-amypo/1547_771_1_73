@@ -1,46 +1,66 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "approval_actions")
+@Table(name = "approval_action")
 public class ApprovalAction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "request_id", nullable = false)
     private Long requestId;
-    private Long approverId;
-    private Integer level;
-    private String action;
-    private String comments;
-    private LocalDateTime actionDate;
 
-    @PrePersist
-    protected void onCreate() {
-        this.actionDate = LocalDateTime.now();
+    @Column(name = "approver_id", nullable = false)
+    private Long approverId;
+
+    @Column(name = "level_number", nullable = false)
+    private Integer levelNumber;
+
+    @Column(name = "action", nullable = false)
+    private String action;
+
+    // ---------------- Getters and Setters ----------------
+
+    public Long getId() {
+        return id;
     }
 
-    public ApprovalAction() {}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getId() { return id; }
+    public Long getRequestId() {
+        return requestId;
+    }
 
-    public Long getRequestId() { return requestId; }
-    public void setRequestId(Long requestId) { this.requestId = requestId; }
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
+    }
 
-    public Long getApproverId() { return approverId; }
-    public void setApproverId(Long approverId) { this.approverId = approverId; }
+    public Long getApproverId() {
+        return approverId;
+    }
 
-    public Integer getLevel() { return level; }
-    public void setLevel(Integer level) { this.level = level; }
+    public void setApproverId(Long approverId) {
+        this.approverId = approverId;
+    }
 
-    public String getAction() { return action; }
-    public void setAction(String action) { this.action = action; }
+    public Integer getLevelNumber() {
+        return levelNumber;
+    }
 
-    public String getComments() { return comments; }
-    public void setComments(String comments) { this.comments = comments; }
+    public void setLevelNumber(Integer levelNumber) {
+        this.levelNumber = levelNumber;
+    }
 
-    public LocalDateTime getActionDate() { return actionDate; }
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 }
