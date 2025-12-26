@@ -41,21 +41,17 @@ public class AuthController {
     // ----------------------------------------------------
     // Login user and return JWT
     // ----------------------------------------------------
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(
-            @RequestBody AuthRequest request) {
+   @PostMapping("/login")
+public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+    User user = userService.findByUsernameOrEmail(request.getUsername());
 
-        User user = userService.findByUsernameOrEmail(
-                request.getUsernameOrEmail()
-        );
+    AuthResponse response = new AuthResponse();
+    response.setUsername(user.getUsername());
+    response.setRole(user.getRole().getName());
+    response.setMessage("Login successful");
 
-        String token = jwtTokenProvider.generateToken(user);
+    return ResponseEntity.ok(response);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("token", token);
-        response.put("userId", user.getId());
-        response.put("username", user.getUsername());
 
-        return ResponseEntity.ok(response);
     }
 }
