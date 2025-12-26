@@ -1,10 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.User;
+import com.example.demo.model.User;
+
+import java.util.List;
 
 public interface UserService {
 
-    User registerUser(User user, String roleName);
+    User createUser(User user);
 
-    User findByUsername(String username);
+    User getUserById(Long id);
+
+    User getUserByUsername(String username);
+
+    List<User> getAllUsers();
 }

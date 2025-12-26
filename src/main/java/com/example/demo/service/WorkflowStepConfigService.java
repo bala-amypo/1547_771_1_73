@@ -1,12 +1,18 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.WorkflowStepConfig;
+import com.example.demo.model.WorkflowStepConfig;
 
 import java.util.List;
 
 public interface WorkflowStepConfigService {
 
-    WorkflowStepConfig createStep(WorkflowStepConfig step);
+    WorkflowStepConfig createStep(WorkflowStepConfig stepConfig);
 
-    List<WorkflowStepConfig> getStepsForTemplate(Long templateId);
+    WorkflowStepConfig getStepById(Long id);
+
+    List<WorkflowStepConfig> getStepsByTemplateId(Long templateId);
+
+    WorkflowStepConfig updateStep(Long id, WorkflowStepConfig stepConfig);
+
+    void deleteStep(Long id);
 }

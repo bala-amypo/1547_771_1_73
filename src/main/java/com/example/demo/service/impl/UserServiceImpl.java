@@ -1,52 +1,69 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.Role;
-import com.example.demo.entity.User;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Role;
+import com.example.demo.model.User;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
+    @Autowired
+    private RoleRepository roleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    // ----------------------------------------------------
+    // Create user with encoded password & roles
+    // ----------------------------------------------------
     @Override
-    public User registerUser(User user, String roleName) {
-        Role role = roleRepository.findByName(roleName)
-                .orElseGet(() -> {
-                    Role r = new Role();
-                    r.setName(roleName);
-                    return roleRepository.save(r);
-                });
+    public User createUser(User user) {
 
-        user.setRoles(new HashSet<>());
-        user.getRoles().add(role);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        List<User> allUsers = userRepository.findAll();
-        user.setId((long) (allUsers.size() + 1));
-        allUsers.add(user);
-
-        return user;
-    }
-
-    @Override
-    public User findByUsername(String username) {
-        List<User> allUsers = userRepository.findAll();
-        for (User u : allUsers) {
-            if (u.getUsername().equals(username)) return u;
+        Set<Role> roles = new HashSet<>();
+        for (Role role : user.getRoles()) {
+            Role existingRole = roleRepository
+                    .findByName(role.getName())
+                    .orElseThrow(() ->
+                            new ResourceNotFoundException("Role not found: " + role.getName()));
+            roles.add(existingRole);
         }
-        return null; 
+
+        user.setRoles(roles);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found with id: " + id));
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found: " + username));
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
