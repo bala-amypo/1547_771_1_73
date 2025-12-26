@@ -1,32 +1,32 @@
-package com.example.demo.service.impl;
+// package com.example.demo.service.impl;
 
-import com.example.demo.model.ApprovalRequest;
-import com.example.demo.repository.ApprovalRequestRepository;
-import com.example.demo.service.ApprovalRequestService;
-import org.springframework.stereotype.Service;
+// import com.example.demo.model.ApprovalRequest;
+// import com.example.demo.repository.ApprovalRequestRepository;
+// import com.example.demo.service.ApprovalRequestService;
+// import org.springframework.stereotype.Service;
 
-import java.util.List;
+// import java.util.List;
 
-@Service
-public class ApprovalRequestServiceImpl implements ApprovalRequestService {
+// @Service
+// public class ApprovalRequestServiceImpl implements ApprovalRequestService {
 
-    private final ApprovalRequestRepository repository;
+//     private final ApprovalRequestRepository repository;
 
-    public ApprovalRequestServiceImpl(ApprovalRequestRepository repository) {
-        this.repository = repository;
-    }
+//     public ApprovalRequestServiceImpl(ApprovalRequestRepository repository) {
+//         this.repository = repository;
+//     }
 
-    public ApprovalRequest createRequest(ApprovalRequest request) {
-        request.setStatus("PENDING");
-        request.setCurrentLevel(1);
-        return repository.save(request);
-    }
+//     public ApprovalRequest createRequest(ApprovalRequest request) {
+//         request.setStatus("PENDING");
+//         request.setCurrentLevel(1);
+//         return repository.save(request);
+//     }
 
-    public List<ApprovalRequest> getAllRequests() {
-        return repository.findAll();
-    }
+//     public List<ApprovalRequest> getAllRequests() {
+//         return repository.findAll();
+//     }
 
-    public List<ApprovalRequest> getRequestsByRequester(Long requesterId) {
-        return repository.findByRequesterId(requesterId);
-    }
-}
+//     public List<ApprovalRequest> getRequestsByRequester(Long requesterId) {
+//         return repository.findByRequesterId(requesterId);
+//     }
+// }

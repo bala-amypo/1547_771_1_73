@@ -1,13 +1,13 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.model.ApprovalRequest;
-import java.util.List;
+// import com.example.demo.model.ApprovalRequest;
+// import java.util.List;
 
-public interface ApprovalRequestService {
+// public interface ApprovalRequestService {
 
-    ApprovalRequest createRequest(ApprovalRequest request);
+//     ApprovalRequest createRequest(ApprovalRequest request);
 
-    List<ApprovalRequest> getAllRequests();
+//     List<ApprovalRequest> getAllRequests();
 
-    List<ApprovalRequest> getRequestsByRequester(Long requesterId);
-}
+//     List<ApprovalRequest> getRequestsByRequester(Long requesterId);
+// }
