@@ -1,11 +1,16 @@
 package com.example.demo.dto;
 
-import lombok.Data;
 import java.util.Collection;
 
-@Data
 public class AuthResponse {
     private String token;
-    private String username; // Could be username or email per Helper Doc
-    private Collection<String> roles; // Collection of role names
+    private String username;
+    private Collection<String> roles;
+
+    public String getToken() { return token; }
+    public void setToken(String token) { this.token = token; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public Collection<String> getRoles() { return roles; }
+    public void setRoles(Collection<String> roles) { this.roles = roles; }
 }
