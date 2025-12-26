@@ -1,42 +1,30 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.WorkflowTemplate;
-import com.example.demo.repository.WorkflowStepConfigRepository;
 import com.example.demo.repository.WorkflowTemplateRepository;
 import com.example.demo.service.WorkflowTemplateService;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WorkflowTemplateServiceImpl implements WorkflowTemplateService {
+    private final WorkflowTemplateRepository templateRepository;
 
-    @Autowired
-    private WorkflowTemplateRepository templateRepository;
-
-    @Autowired
-    private WorkflowStepConfigRepository stepConfigRepository;
-
-    @Override
-    public WorkflowTemplate createTemplate(WorkflowTemplate template) {
-        return templateRepository.save(template);
+    public WorkflowTemplateServiceImpl(WorkflowTemplateRepository templateRepository) {
+        this.templateRepository = templateRepository;
     }
 
     @Override
-    public WorkflowTemplate getTemplateById(Long id) {
-        return templateRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("WorkflowTemplate not found with id: " + id));
+    public WorkflowTemplate createTemplate(WorkflowTemplate t) {
+        if (t.getActive() == null) t.setActive(true);
+        return templateRepository.save(t);
     }
 
     @Override
-    public WorkflowTemplate getTemplateByName(String name) {
-        return templateRepository.findByName(name)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("WorkflowTemplate not found: " + name));
+    public Optional<WorkflowTemplate> getTemplateById(Long id) {
+        return templateRepository.findById(id);
     }
 
     @Override
@@ -45,11 +33,20 @@ public class WorkflowTemplateServiceImpl implements WorkflowTemplateService {
     }
 
     @Override
-    public void deleteTemplate(Long id) {
-        if (!templateRepository.existsById(id)) {
-            throw new ResourceNotFoundException("WorkflowTemplate not found with id: " + id);
-        }
-        stepConfigRepository.deleteByWorkflowTemplateId(id);
-        templateRepository.deleteById(id);
+    public WorkflowTemplate updateTemplate(Long id, WorkflowTemplate t) {
+        WorkflowTemplate existing = templateRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Template not found"));
+        existing.setTemplateName(t.getTemplateName());
+        existing.setDescription(t.getDescription());
+        existing.setTotalLevels(t.getTotalLevels());
+        return templateRepository.save(existing);
+    }
+
+    @Override
+    public WorkflowTemplate activateTemplate(Long id, boolean active) {
+        WorkflowTemplate existing = templateRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Template not found"));
+        existing.setActive(active);
+        return templateRepository.save(existing);
     }
 }
