@@ -55,3 +55,51 @@
 //         return repository.save(existing);
 //     }
 // }
+
+
+
+
+package com.example.demo.service;
+
+import com.example.demo.model.WorkflowTemplate;
+import com.example.demo.repository.WorkflowTemplateRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class WorkflowTemplateServiceImpl implements WorkflowTemplateService {
+
+    @Autowired
+    private WorkflowTemplateRepository repo;
+
+    @Override
+    public WorkflowTemplate createTemplate(WorkflowTemplate template) {
+        return repo.save(template);
+    }
+
+    @Override
+    public Optional<WorkflowTemplate> getTemplateById(Long id) {
+        return repo.findById(id);
+    }
+
+    @Override
+    public WorkflowTemplate updateTemplate(Long id, WorkflowTemplate template) {
+        template.setId(id);
+        return repo.save(template);
+    }
+
+    @Override
+    public WorkflowTemplate activateTemplate(Long id, boolean active) {
+        WorkflowTemplate t = repo.findById(id).orElseThrow();
+        t.setActive(active);
+        return repo.save(t);
+    }
+
+    @Override
+    public List<WorkflowTemplate> getAllTemplates() {
+        return repo.findAll();
+    }
+}

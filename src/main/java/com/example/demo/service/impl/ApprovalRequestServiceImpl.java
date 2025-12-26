@@ -30,3 +30,37 @@
 //         return repository.findByRequesterId(requesterId);
 //     }
 // }
+
+
+
+package com.example.demo.service;
+
+import com.example.demo.model.ApprovalRequest;
+import com.example.demo.repository.ApprovalRequestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ApprovalRequestServiceImpl
+        implements ApprovalRequestService {
+
+    @Autowired
+    private ApprovalRequestRepository repo;
+
+    @Override
+    public ApprovalRequest createRequest(ApprovalRequest request) {
+        return repo.save(request);
+    }
+
+    @Override
+    public List<ApprovalRequest> getRequestsByRequester(Long requesterId) {
+        return repo.findByRequesterId(requesterId);
+    }
+
+    @Override
+    public List<ApprovalRequest> getAllRequests() {
+        return repo.findAll();
+    }
+}
