@@ -1,10 +1,66 @@
+// // package com.example.demo.model;
+
+// // import jakarta.persistence.*;
+// // import java.time.LocalDateTime;
+
+// // @Entity
+// // @Table(name = "audit_log_records")
+// // public class AuditLogRecord {
+
+// //     @Id
+// //     @GeneratedValue(strategy = GenerationType.IDENTITY)
+// //     private Long id;
+
+// //     private Long requestId;
+// //     private String eventType;
+// //     private String details;
+// //     private LocalDateTime loggedAt = LocalDateTime.now();
+
+// //     public AuditLogRecord() {}
+
+// //     public Long getId() {
+// //         return id;
+// //     }
+
+// //     public Long getRequestId() {
+// //         return requestId;
+// //     }
+
+// //     public void setRequestId(Long requestId) {
+// //         this.requestId = requestId;
+// //     }
+
+// //     public String getEventType() {
+// //         return eventType;
+// //     }
+
+// //     public void setEventType(String eventType) {
+// //         this.eventType = eventType;
+// //     }
+
+// //     public String getDetails() {
+// //         return details;
+// //     }
+
+// //     public void setDetails(String details) {
+// //         this.details = details;
+// //     }
+
+// //     public LocalDateTime getLoggedAt() {
+// //         return loggedAt;
+// //     }
+// // }
+
+
+
+
+
 // package com.example.demo.model;
 
 // import jakarta.persistence.*;
-// import java.time.LocalDateTime;
 
 // @Entity
-// @Table(name = "audit_log_records")
+// @Table(name = "audit_logs")
 // public class AuditLogRecord {
 
 //     @Id
@@ -13,73 +69,17 @@
 
 //     private Long requestId;
 //     private String eventType;
+
+//     @Lob
 //     private String details;
-//     private LocalDateTime loggedAt = LocalDateTime.now();
 
-//     public AuditLogRecord() {}
+//     public Long getId() { return id; }
+//     public Long getRequestId() { return requestId; }
+//     public String getEventType() { return eventType; }
+//     public String getDetails() { return details; }
 
-//     public Long getId() {
-//         return id;
-//     }
-
-//     public Long getRequestId() {
-//         return requestId;
-//     }
-
-//     public void setRequestId(Long requestId) {
-//         this.requestId = requestId;
-//     }
-
-//     public String getEventType() {
-//         return eventType;
-//     }
-
-//     public void setEventType(String eventType) {
-//         this.eventType = eventType;
-//     }
-
-//     public String getDetails() {
-//         return details;
-//     }
-
-//     public void setDetails(String details) {
-//         this.details = details;
-//     }
-
-//     public LocalDateTime getLoggedAt() {
-//         return loggedAt;
-//     }
+//     public void setId(Long id) { this.id = id; }
+//     public void setRequestId(Long requestId) { this.requestId = requestId; }
+//     public void setEventType(String eventType) { this.eventType = eventType; }
+//     public void setDetails(String details) { this.details = details; }
 // }
-
-
-
-
-
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "audit_logs")
-public class AuditLogRecord {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private Long requestId;
-    private String eventType;
-
-    @Lob
-    private String details;
-
-    public Long getId() { return id; }
-    public Long getRequestId() { return requestId; }
-    public String getEventType() { return eventType; }
-    public String getDetails() { return details; }
-
-    public void setId(Long id) { this.id = id; }
-    public void setRequestId(Long requestId) { this.requestId = requestId; }
-    public void setEventType(String eventType) { this.eventType = eventType; }
-    public void setDetails(String details) { this.details = details; }
-}
