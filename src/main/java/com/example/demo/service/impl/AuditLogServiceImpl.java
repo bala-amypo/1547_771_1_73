@@ -18,3 +18,24 @@
 //         return repository.save(log);
 //     }
 // }
+
+
+package com.example.demo.service;
+
+import com.example.demo.model.AuditLogRecord;
+import com.example.demo.repository.AuditLogRecordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuditLogServiceImpl
+        implements AuditLogService {
+
+    @Autowired
+    private AuditLogRecordRepository repo;
+
+    @Override
+    public AuditLogRecord save(AuditLogRecord record) {
+        return repo.save(record);
+    }
+}
