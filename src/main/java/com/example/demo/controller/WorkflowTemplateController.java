@@ -2,83 +2,47 @@ package com.example.demo.controller;
 
 import com.example.demo.model.WorkflowTemplate;
 import com.example.demo.service.WorkflowTemplateService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/workflow-templates")
+@RequestMapping("/api/templates")
+@Tag(name = "Workflow Template", description = "Operations related to workflow templates")
 public class WorkflowTemplateController {
 
-    @Autowired
-    private WorkflowTemplateService workflowTemplateService;
+    private final WorkflowTemplateService templateService;
 
-    // ----------------------------------------------------
-    // Create workflow template
-    // ----------------------------------------------------
-    @PostMapping
-    public ResponseEntity<WorkflowTemplate> createTemplate(
-            @RequestBody WorkflowTemplate template) {
-
-        WorkflowTemplate saved =
-                workflowTemplateService.createTemplate(template);
-        return ResponseEntity.ok(saved);
+    public WorkflowTemplateController(WorkflowTemplateService templateService) {
+        this.templateService = templateService;
     }
 
-    // ----------------------------------------------------
-    // Get template by ID
-    // ----------------------------------------------------
- @GetMapping("/{id}")
-public ResponseEntity<WorkflowTemplate> getById(@PathVariable Long id) {
-    WorkflowTemplate template = workflowTemplateService.getById(id);
-    return ResponseEntity.ok(template);
-}
-
-
-    // ----------------------------------------------------
-    // Get all templates
-    // ----------------------------------------------------
-    @GetMapping
-    public ResponseEntity<List<WorkflowTemplate>> getAllTemplates() {
-        return ResponseEntity.ok(
-                workflowTemplateService.getAllTemplates()
-        );
+    @PostMapping("/")
+    @Operation(summary = "Create a new template")
+    public ResponseEntity<WorkflowTemplate> createTemplate(@RequestBody WorkflowTemplate template) {
+        return ResponseEntity.ok(templateService.createTemplate(template));
     }
 
-    // ----------------------------------------------------
-    // Update workflow template
-    // ----------------------------------------------------
+    @GetMapping("/{id}")
+    @Operation(summary = "Get template by ID")
+    public ResponseEntity<WorkflowTemplate> getTemplateById(@PathVariable Long id) {
+        return templateService.getTemplateById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<WorkflowTemplate> updateTemplate(
-            @PathVariable Long id,
-            @RequestBody WorkflowTemplate template) {
-
-        WorkflowTemplate updated =
-                workflowTemplateService.updateTemplate(id, template);
-        return ResponseEntity.ok(updated);
+    @Operation(summary = "Update an existing template")
+    public ResponseEntity<WorkflowTemplate> updateTemplate(@PathVariable Long id, @RequestBody WorkflowTemplate template) {
+        return ResponseEntity.ok(templateService.updateTemplate(id, template));
     }
 
-    // ----------------------------------------------------
-    // Activate / Deactivate template
-    // ----------------------------------------------------
-    @PutMapping("/{id}/active")
-    public ResponseEntity<WorkflowTemplate> activateTemplate(
-            @PathVariable Long id,
-            @RequestParam boolean active) {
-
-        WorkflowTemplate updated =
-                workflowTemplateService.activateTemplate(id, active);
-        return ResponseEntity.ok(updated);
-    }
-
-    // ----------------------------------------------------
-    // Delete workflow template
-    // ----------------------------------------------------
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTemplate(@PathVariable Long id) {
-        workflowTemplateService.deleteTemplate(id);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/")
+    @Operation(summary = "List all templates")
+    public ResponseEntity<List<WorkflowTemplate>> getAllTemplates() {
+        return ResponseEntity.ok(templateService.getAllTemplates());
     }
 }

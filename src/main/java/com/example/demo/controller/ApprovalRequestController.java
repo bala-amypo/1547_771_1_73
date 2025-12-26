@@ -2,79 +2,36 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ApprovalRequest;
 import com.example.demo.service.ApprovalRequestService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/approval-requests")
+@RequestMapping("/api/requests")
+@Tag(name = "Approval Request", description = "Operations related to approval requests")
 public class ApprovalRequestController {
 
-    @Autowired
-    private ApprovalRequestService approvalRequestService;
+    private final ApprovalRequestService requestService;
 
-    // ----------------------------------------------------
-    // Create approval request
-    // ----------------------------------------------------
-    @PostMapping
-    public ResponseEntity<ApprovalRequest> createRequest(
-            @RequestBody ApprovalRequest request) {
-
-        ApprovalRequest saved = approvalRequestService.createRequest(request);
-        return ResponseEntity.ok(saved);
+    public ApprovalRequestController(ApprovalRequestService requestService) {
+        this.requestService = requestService;
     }
 
-    // ----------------------------------------------------
-    // Get approval request by ID
-    // ----------------------------------------------------
-   @GetMapping("/{id}")
-    public ResponseEntity<ApprovalRequest> getById(@PathVariable Long id) {
-    ApprovalRequest request = approvalRequestService.getById(id);
-    return ResponseEntity.ok(request);
-}
-
-
-    // ----------------------------------------------------
-    // Get all approval requests
-    // ----------------------------------------------------
-    @GetMapping
-    public ResponseEntity<List<ApprovalRequest>> getAllRequests() {
-        return ResponseEntity.ok(approvalRequestService.getAllRequests());
+    @PostMapping("/")
+    @Operation(summary = "Create a new approval request")
+    public ResponseEntity<ApprovalRequest> createRequest(@RequestBody ApprovalRequest request) {
+        return ResponseEntity.ok(requestService.createRequest(request));
     }
 
-    // ----------------------------------------------------
-    // Get requests by requester ID
-    // ----------------------------------------------------
-    @GetMapping("/requester/{requesterId}")
-    public ResponseEntity<List<ApprovalRequest>> getByRequester(
-            @PathVariable Long requesterId) {
-
-        return ResponseEntity.ok(
-                approvalRequestService.getRequestsByRequester(requesterId)
-        );
-    }
-
-    // ----------------------------------------------------
-    // Update request status
-    // ----------------------------------------------------
-    @PutMapping("/{id}/status")
-    public ResponseEntity<ApprovalRequest> updateStatus(
-            @PathVariable Long id,
-            @RequestParam String status) {
-
-        ApprovalRequest updated =
-                approvalRequestService.updateRequestStatus(id, status);
-        return ResponseEntity.ok(updated);
-    }
-
-    // ----------------------------------------------------
-    // Delete approval request
-    // ----------------------------------------------------
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
-        approvalRequestService.deleteRequest(id);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/")
+    @Operation(summary = "List all requests with optional requester filter")
+    public ResponseEntity<List<ApprovalRequest>> listRequests(@RequestParam(required = false) Long requesterId) {
+        if (requesterId != null) {
+            return ResponseEntity.ok(requestService.getRequestsByRequester(requesterId));
+        }
+        return ResponseEntity.ok(requestService.getAllRequests());
     }
 }
