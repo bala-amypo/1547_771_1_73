@@ -8,4 +8,7 @@ public interface ApprovalActionRepository
         extends JpaRepository<ApprovalAction, Long> {
 
     List<ApprovalAction> findByLevelNumberAndAction(Integer levelNumber, String action);
+
+    // 🔥 REQUIRED FOR TESTS
+    List<ApprovalAction> findByLevelAndAction(Integer level, String action);
 }
