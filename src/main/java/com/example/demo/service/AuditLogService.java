@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
-import org.springframework.stereotype.Service;
+import com.example.demo.model.AuditLogRecord;
 
-@Service
-public class AuditLogService {
+public interface AuditLogService {
+
+    AuditLogRecord saveLog(AuditLogRecord log);
 }
