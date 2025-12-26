@@ -13,4 +13,10 @@ public interface UserService {
     User getUserByUsername(String username);
 
     List<User> getAllUsers();
+
+    
+    User registerUser(User user, String roleName);
+    User findByUsernameOrEmail(String value);
 }
+
+
