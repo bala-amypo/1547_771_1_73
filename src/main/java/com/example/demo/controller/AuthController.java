@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
+import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,15 @@ public class AuthController {
 
         User user = userService.findByUsernameOrEmail(request.getUsername());
 
+        String roleName = user.getRoles()
+                .stream()
+                .map(Role::getName)
+                .findFirst()
+                .orElse("USER");
+
         AuthResponse response = new AuthResponse();
         response.setUsername(user.getUsername());
-        response.setRole(user.getRole().getName());
+        response.setRole(roleName);
         response.setMessage("Login successful");
 
         return ResponseEntity.ok(response);
