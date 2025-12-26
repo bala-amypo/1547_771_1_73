@@ -15,4 +15,10 @@ public interface WorkflowTemplateService {
     List<WorkflowTemplate> getAllTemplates();
 
     void deleteTemplate(Long id);
+    
+    WorkflowTemplate getById(Long id);
+    WorkflowTemplate updateTemplate(Long id, WorkflowTemplate template);
+    WorkflowTemplate activateTemplate(Long id, boolean active);
+}
+
 }
