@@ -1,56 +1,20 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "audit_log_record")
+@Table(name = "audit_log_records")
+@Data
 public class AuditLogRecord {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "request_id", nullable = false)
     private Long requestId;
-
-    @Column(name = "event_type", nullable = false)
     private String eventType;
-
-    @Lob
-    @Column(name = "details")
     private String details;
-
-    // ---------------- Getters and Setters ----------------
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(Long requestId) {
-        this.requestId = requestId;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
+    
+    private LocalDateTime loggedAt = LocalDateTime.now();
 }
