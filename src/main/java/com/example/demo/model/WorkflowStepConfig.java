@@ -1,37 +1,71 @@
-package com.example.demo.entity;
+package com.example.demo.model;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "workflow_step_configs")
+@Table(
+    name = "workflow_step_config",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"template_id", "level_number"})
+    }
+)
 public class WorkflowStepConfig {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long templateId;     // ❗ MUST be Long, NOT @ManyToOne
+    @Column(name = "template_id", nullable = false)
+    private Long templateId;
+
+    @Column(name = "level_number", nullable = false)
     private Integer levelNumber;
+
+    @Column(name = "approver_role", nullable = false)
     private String approverRole;
-    private Boolean isFinalStep;
+
+    @Column(name = "instructions")
     private String instructions;
 
-    public WorkflowStepConfig() {}
+    // ---------------- Getters and Setters ----------------
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getTemplateId() { return templateId; }
-    public void setTemplateId(Long templateId) { this.templateId = templateId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Integer getLevelNumber() { return levelNumber; }
-    public void setLevelNumber(Integer levelNumber) { this.levelNumber = levelNumber; }
+    public Long getTemplateId() {
+        return templateId;
+    }
 
-    public String getApproverRole() { return approverRole; }
-    public void setApproverRole(String approverRole) { this.approverRole = approverRole; }
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
+    }
 
-    public Boolean getIsFinalStep() { return isFinalStep; }
-    public void setIsFinalStep(Boolean isFinalStep) { this.isFinalStep = isFinalStep; }
+    public Integer getLevelNumber() {
+        return levelNumber;
+    }
 
-    public String getInstructions() { return instructions; }
-    public void setInstructions(String instructions) { this.instructions = instructions; }
+    public void setLevelNumber(Integer levelNumber) {
+        this.levelNumber = levelNumber;
+    }
+
+    public String getApproverRole() {
+        return approverRole;
+    }
+
+    public void setApproverRole(String approverRole) {
+        this.approverRole = approverRole;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
 }

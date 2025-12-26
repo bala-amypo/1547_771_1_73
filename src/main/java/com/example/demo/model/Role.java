@@ -1,10 +1,15 @@
-package com.example.demo.entity;
+package com.example.demo.model;
+
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(
     name = "roles",
-    uniqueConstraints = @UniqueConstraint(columnNames = "name")
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+    }
 )
 public class Role {
 
@@ -12,13 +17,35 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    public Role() {}
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // ---------------- Getters and Setters ----------------
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }

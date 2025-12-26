@@ -1,39 +1,61 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.User;
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.RegisterRequest;
+import com.example.demo.model.User;
+import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    public AuthController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
+    // ----------------------------------------------------
+    // Register new user
+    // ----------------------------------------------------
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    public ResponseEntity<User> register(
+            @RequestBody RegisterRequest request) {
 
-        userService.registerUser(user, "USER");
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
 
-        return ResponseEntity.ok("User registered successfully");
+        User saved = userService.registerUser(user, request.getRole());
+        return ResponseEntity.ok(saved);
     }
 
+    // ----------------------------------------------------
+    // Login user and return JWT
+    // ----------------------------------------------------
     @PostMapping("/login")
-    public ResponseEntity<String> login(
-            @RequestParam String username,
-            @RequestParam String password) {
+    public ResponseEntity<Map<String, Object>> login(
+            @RequestBody AuthRequest request) {
 
-        User user = userService.findByUsername(username);
+        User user = userService.findByUsernameOrEmail(
+                request.getUsernameOrEmail()
+        );
 
-        if (!user.getPassword().equals(password)) {
-            throw new RuntimeException("Invalid username or password");
-        }
+        String token = jwtTokenProvider.generateToken(user);
 
-        return ResponseEntity.ok("Login successful (No Encoder, No JWT)");
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("userId", user.getId());
+        response.put("username", user.getUsername());
+
+        return ResponseEntity.ok(response);
     }
 }

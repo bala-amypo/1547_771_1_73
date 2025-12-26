@@ -1,34 +1,56 @@
-package com.example.demo.entity;
+package com.example.demo.model;
+
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "audit_log_records")
+@Table(name = "audit_log_record")
 public class AuditLogRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "request_id", nullable = false)
     private Long requestId;
+
+    @Column(name = "event_type", nullable = false)
     private String eventType;
+
+    @Lob
+    @Column(name = "details")
     private String details;
-    private LocalDateTime loggedAt;
 
-    public AuditLogRecord() {}
+    // ---------------- Getters and Setters ----------------
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getRequestId() { return requestId; }
-    public void setRequestId(Long requestId) { this.requestId = requestId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getEventType() { return eventType; }
-    public void setEventType(String eventType) { this.eventType = eventType; }
+    public Long getRequestId() {
+        return requestId;
+    }
 
-    public String getDetails() { return details; }
-    public void setDetails(String details) { this.details = details; }
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
+    }
 
-    public LocalDateTime getLoggedAt() { return loggedAt; }
-    public void setLoggedAt(LocalDateTime loggedAt) { this.loggedAt = loggedAt; }
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 }

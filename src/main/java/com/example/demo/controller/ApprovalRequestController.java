@@ -1,32 +1,80 @@
- package com.example.demo.controller;
+package com.example.demo.controller;
 
-import com.example.demo.entity.ApprovalRequest;
+import com.example.demo.model.ApprovalRequest;
 import com.example.demo.service.ApprovalRequestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/requests")
+@RequestMapping("/api/approval-requests")
 public class ApprovalRequestController {
 
-    private final ApprovalRequestService service;
+    @Autowired
+    private ApprovalRequestService approvalRequestService;
 
-    public ApprovalRequestController(ApprovalRequestService service) {
-        this.service = service;
-    }
-
+    // ----------------------------------------------------
+    // Create approval request
+    // ----------------------------------------------------
     @PostMapping
-    public ApprovalRequest create(@RequestBody ApprovalRequest request) {
-        return service.createRequest(request);
+    public ResponseEntity<ApprovalRequest> createRequest(
+            @RequestBody ApprovalRequest request) {
+
+        ApprovalRequest saved = approvalRequestService.createRequest(request);
+        return ResponseEntity.ok(saved);
     }
 
-    @GetMapping
-    public List<ApprovalRequest> getAll(
-            @RequestParam(required = false) Long requesterId) {
+    // ----------------------------------------------------
+    // Get approval request by ID
+    // ----------------------------------------------------
+    @GetMapping("/{id}")
+    public ResponseEntity<ApprovalRequest> getRequestById(@PathVariable Long id) {
+        return approvalRequestService.getRequestById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
-        return (requesterId != null)
-                ? service.getRequestsByRequester(requesterId)
-                : service.getAllRequests();
+    // ----------------------------------------------------
+    // Get all approval requests
+    // ----------------------------------------------------
+    @GetMapping
+    public ResponseEntity<List<ApprovalRequest>> getAllRequests() {
+        return ResponseEntity.ok(approvalRequestService.getAllRequests());
+    }
+
+    // ----------------------------------------------------
+    // Get requests by requester ID
+    // ----------------------------------------------------
+    @GetMapping("/requester/{requesterId}")
+    public ResponseEntity<List<ApprovalRequest>> getByRequester(
+            @PathVariable Long requesterId) {
+
+        return ResponseEntity.ok(
+                approvalRequestService.getRequestsByRequester(requesterId)
+        );
+    }
+
+    // ----------------------------------------------------
+    // Update request status
+    // ----------------------------------------------------
+    @PutMapping("/{id}/status")
+    public ResponseEntity<ApprovalRequest> updateStatus(
+            @PathVariable Long id,
+            @RequestParam String status) {
+
+        ApprovalRequest updated =
+                approvalRequestService.updateRequestStatus(id, status);
+        return ResponseEntity.ok(updated);
+    }
+
+    // ----------------------------------------------------
+    // Delete approval request
+    // ----------------------------------------------------
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
+        approvalRequestService.deleteRequest(id);
+        return ResponseEntity.noContent().build();
     }
 }
