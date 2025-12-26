@@ -1,37 +1,22 @@
 package com.example.demo.security;
 
-import com.example.demo.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.filter.OncePerRequestFilter;
+import java.io.IOException;
 
-@Component
-public class JwtTokenProvider {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws ServletException, IOException {
 
-    public String generateToken(User user) {
-        return "uid:" + user.getId()
-                + ":uname:" + user.getUsername()
-                + ":email:" + user.getEmail();
-    }
-
-    public Long getUserIdFromToken(String token) {
-        // token parts: [0]=uid, [1]=<id>, [2]=uname, [3]=<username>, [4]=email, [5]=<email>
-        String[] parts = token.split(":");
-        if (parts.length < 2 || !"uid".equals(parts[0])) {
-            throw new IllegalArgumentException("Invalid token");
-        }
-        return Long.parseLong(parts[1]);
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Long id = getUserIdFromToken(token);
-            return id != null && id > 0;
-        } catch (Exception e) {
-            return false;
-        }
+        // for now just continue the request
+        filterChain.doFilter(request, response);
     }
 }

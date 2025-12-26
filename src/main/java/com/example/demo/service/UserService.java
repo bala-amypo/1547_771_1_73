@@ -1,19 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+public interface UserService {
 
-@Service
-public class UserService {
+    User registerUser(User user, String roleName);
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+    User findByUsernameOrEmail(String value);
 }
