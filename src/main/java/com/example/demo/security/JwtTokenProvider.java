@@ -4,27 +4,50 @@ import com.example.demo.model.User;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenProvider {
 
+    // Using the secret from SecurityConstants or a local string
     private final String SECRET = "SecretKeyToGenJWTsWithHighEntropyRequiredForRecentVersions";
 
     public String generateToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getId());
+        claims.put("email", user.getEmail());
+        claims.put("roles", user.getRoles().stream()
+                .map(role -> role.getName())
+                .collect(Collectors.toList()));
+
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(user.getUsername())
-                .claim("userId", user.getId())
-                .claim("email", user.getEmail())
-                .claim("roles", user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 864000000))
+                .setExpiration(new Date(System.currentTimeMillis() + 864000000)) // 10 days
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
     }
 
+    /**
+     * Required by UserServiceTest.testJwtTokenIncludesUserIdEmailRoles
+     */
+    public Long getUserIdFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(SECRET)
+                .parseClaimsJws(token)
+                .getBody();
+        return Long.parseLong(claims.get("userId").toString());
+    }
+
     public String getUsernameFromToken(String token) {
-        return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody().getSubject();
+        Claims claims = Jwts.parser()
+                .setSigningKey(SECRET)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
     }
 
     public boolean validateToken(String token) {
