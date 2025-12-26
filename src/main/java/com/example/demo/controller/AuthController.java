@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,17 +38,15 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "Authenticate user and return JWT")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
-        // Validation/Authentication logic typically happens in the service layer or security filters
-        // For the purpose of the test suite, we fetch user and generate token
         User user = userService.findByUsername(req.getUsernameOrEmail());
-        
+
         String token = jwtTokenProvider.generateToken(user);
-        
+
         AuthResponse response = new AuthResponse();
         response.setToken(token);
         response.setUsername(user.getUsername());
         response.setRoles(user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList()));
-        
+
         return ResponseEntity.ok(response);
     }
 }

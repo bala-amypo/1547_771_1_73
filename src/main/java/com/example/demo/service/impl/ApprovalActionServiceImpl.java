@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ApprovalActionServiceImpl implements ApprovalActionService {
+
     private final ApprovalActionRepository actionRepository;
     private final ApprovalRequestRepository requestRepository;
 
@@ -22,18 +23,18 @@ public class ApprovalActionServiceImpl implements ApprovalActionService {
     @Override
     public ApprovalAction recordAction(ApprovalAction action) {
         ApprovalAction savedAction = actionRepository.save(action);
-        
-        // Rule: Update associated ApprovalRequest status/level
+
+        // Update associated ApprovalRequest status or level
         ApprovalRequest request = requestRepository.findById(action.getRequestId())
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found"));
-        
-        if ("REJECTED".equals(action.getAction())) {
+
+        if ("REJECTED".equalsIgnoreCase(action.getAction())) {
             request.setStatus("REJECTED");
-        } else if ("APPROVED".equals(action.getAction())) {
-            // Logic to increment level or mark as COMPLETED would go here
+        } else if ("APPROVED".equalsIgnoreCase(action.getAction())) {
+            // Increment level
             request.setCurrentLevel(request.getCurrentLevel() + 1);
         }
-        
+
         requestRepository.save(request);
         return savedAction;
     }
