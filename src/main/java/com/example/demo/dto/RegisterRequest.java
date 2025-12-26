@@ -20,7 +20,6 @@
 //     public void setRole(String role) { this.role = role; }
 // }
 
-
 package com.example.demo.dto;
 
 public class RegisterRequest {
@@ -29,7 +28,6 @@ public class RegisterRequest {
     private String password;
     private String role;
 
-    // getters & setters
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 

@@ -52,7 +52,6 @@
 
 
 
-
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Role;
@@ -90,4 +89,3 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username).orElse(null);
     }
 }
-
