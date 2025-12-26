@@ -1,15 +1,24 @@
 package com.example.demo.dto;
 
-import java.util.List;
-
 public class AuthResponse {
 
     private String token;
+    private String tokenType = "Bearer";
     private Long userId;
     private String username;
-    private List<String> roles;
+    private String email;
+    private String role;
 
-    // ---------------- Getters and Setters ----------------
+    public AuthResponse() {
+    }
+
+    public AuthResponse(String token, Long userId, String username, String email, String role) {
+        this.token = token;
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.role = role;
+    }
 
     public String getToken() {
         return token;
@@ -19,10 +28,18 @@ public class AuthResponse {
         this.token = token;
     }
 
+    public String getTokenType() {
+        return tokenType;
+    }
+
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
+    }
+
     public Long getUserId() {
         return userId;
     }
-    
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -30,61 +47,24 @@ public class AuthResponse {
     public String getUsername() {
         return username;
     }
-    
+
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public List<String> getRoles() {
-        return roles;
-    }
-    
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-}
-package com.example.demo.dto;
-
-import java.util.List;
-
-public class AuthResponse {
-
-    private String token;
-    private Long userId;
-    private String username;
-    private List<String> roles;
-
-    // ---------------- Getters and Setters ----------------
-
-    public String getToken() {
-        return token;
+    public String getEmail() {
+        return email;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-    
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public String getRole() {
+        return role;
     }
 
-    public String getUsername() {
-        return username;
-    }
-    
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-    
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
