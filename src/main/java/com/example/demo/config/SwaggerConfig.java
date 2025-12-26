@@ -24,5 +24,13 @@ public class SwaggerConfig {
                         
                         new Server().url("https://9071.pro604cr.amypo.ai/")
                 ));
+                // ✅ Define JWT scheme ONLY (no global lock)
+                .components(new io.swagger.v3.oas.models.Components()
+                        .addSecuritySchemes("Bearer Authentication",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")));
     }
-}
+    }
+
