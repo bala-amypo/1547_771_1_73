@@ -1,31 +1,37 @@
 package com.example.demo.util;
 
+import com.example.demo.model.ApprovalAction;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class HibernateQueryUtil {
 
-    private HibernateQueryUtil() {
-        // Utility class
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    // ----------------------------------------------------
-    // Create typed query
-    // ----------------------------------------------------
-    public static <T> TypedQuery<T> createQuery(
-            EntityManager entityManager,
-            String hql,
-            Class<T> resultClass) {
+    /**
+     * Required for testCriteriaFindActionsByApprover and testCriteriaEdgeCaseNullApprover.
+     * Uses Hibernate Criteria API (HCQL).
+     */
+    public List<ApprovalAction> findActionsByApproverUsingCriteria(Long approverId) {
+        if (approverId == null) {
+            return new ArrayList<>();
+        }
 
-        return entityManager.createQuery(hql, resultClass);
-    }
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ApprovalAction> query = cb.createQuery(ApprovalAction.class);
+        Root<ApprovalAction> root = query.from(ApprovalAction.class);
 
-    // ----------------------------------------------------
-    // Execute query and return list
-    // ----------------------------------------------------
-    public static <T> List<T> getResultList(TypedQuery<T> query) {
-        return query.getResultList();
+        query.select(root).where(cb.equal(root.get("approverId"), approverId));
+
+        return entityManager.createQuery(query).getResultList();
     }
 }
