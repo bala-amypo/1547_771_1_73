@@ -1,25 +1,50 @@
 package com.example.demo.dto;
 
-import java.util.Collection;
-
 public class AuthResponse {
-    private String token;
-    private String usernameOrEmail;
-    private Collection<String> roles;
 
-    public AuthResponse(String token, String usernameOrEmail, Collection<String> roles) {
-        this.token = token;
-        this.usernameOrEmail = usernameOrEmail;
-        this.roles = roles;
+    private String token;
+    private String username;
+    private String role;
+    private String message;
+
+    public AuthResponse() {
     }
 
-    // Getters and Setters
-    public String getToken() { return token; }
-    public void setToken(String token) { this.token = token; }
+    public AuthResponse(String token, String username, String role) {
+        this.token = token;
+        this.username = username;
+        this.role = role;
+    }
 
-    public String getUsernameOrEmail() { return usernameOrEmail; }
-    public void setUsernameOrEmail(String usernameOrEmail) { this.usernameOrEmail = usernameOrEmail; }
+    public String getToken() {
+        return token;
+    }
 
-    public Collection<String> getRoles() { return roles; }
-    public void setRoles(Collection<String> roles) { this.roles = roles; }
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

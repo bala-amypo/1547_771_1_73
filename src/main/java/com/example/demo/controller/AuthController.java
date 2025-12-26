@@ -34,18 +34,16 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
-        User user = userService.findByUsername(request.getUsernameOrEmail());
-        // In a real app, you'd check the password here. The UserServiceTest 
-        // handles auth logic, but for the controller to return the DTO:
-        String token = tokenProvider.generateToken(user);
-        
-        AuthResponse response = new AuthResponse(
-            token, 
-            user.getUsername(), 
-            user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList())
-        );
-        
-        return ResponseEntity.ok(response);
-    }
+public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+
+    User user = userService.findByUsernameOrEmail(request.getUsername());
+
+    AuthResponse response = new AuthResponse();
+    response.setUsername(user.getUsername());
+    response.setRole(user.getRole().getName());
+    response.setMessage("Login successful");
+
+    return ResponseEntity.ok(response);
+}
+
 }
