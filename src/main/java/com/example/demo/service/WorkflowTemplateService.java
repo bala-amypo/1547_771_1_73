@@ -13,4 +13,7 @@ public interface WorkflowTemplateService {
     List<WorkflowTemplate> getAllTemplates();
 
     WorkflowTemplate activateTemplate(Long id, boolean active);
+
+    // 🔥 REQUIRED FOR TESTS
+    WorkflowTemplate updateTemplate(Long id, WorkflowTemplate template);
 }

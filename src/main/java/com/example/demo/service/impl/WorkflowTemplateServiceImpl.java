@@ -18,22 +18,40 @@ public class WorkflowTemplateServiceImpl implements WorkflowTemplateService {
         this.repository = repository;
     }
 
+    @Override
     public WorkflowTemplate createTemplate(WorkflowTemplate template) {
         return repository.save(template);
     }
 
+    @Override
     public Optional<WorkflowTemplate> getTemplateById(Long id) {
         return repository.findById(id);
     }
 
+    @Override
     public List<WorkflowTemplate> getAllTemplates() {
         return repository.findAll();
     }
 
+    @Override
     public WorkflowTemplate activateTemplate(Long id, boolean active) {
         WorkflowTemplate template = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Template not found"));
         template.setActive(active);
         return repository.save(template);
+    }
+
+    // 🔥 REQUIRED FOR TESTS
+    @Override
+    public WorkflowTemplate updateTemplate(Long id, WorkflowTemplate updated) {
+        WorkflowTemplate existing = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Template not found"));
+
+        existing.setTemplateName(updated.getTemplateName());
+        existing.setDescription(updated.getDescription());
+        existing.setTotalLevels(updated.getTotalLevels());
+        existing.setActive(updated.getActive());
+
+        return repository.save(existing);
     }
 }
