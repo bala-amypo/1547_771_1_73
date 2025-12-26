@@ -1,19 +1,19 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.model.WorkflowTemplate;
-import java.util.List;
-import java.util.Optional;
+// import com.example.demo.model.WorkflowTemplate;
+// import java.util.List;
+// import java.util.Optional;
 
-public interface WorkflowTemplateService {
+// public interface WorkflowTemplateService {
 
-    WorkflowTemplate createTemplate(WorkflowTemplate template);
+//     WorkflowTemplate createTemplate(WorkflowTemplate template);
 
-    Optional<WorkflowTemplate> getTemplateById(Long id);
+//     Optional<WorkflowTemplate> getTemplateById(Long id);
 
-    List<WorkflowTemplate> getAllTemplates();
+//     List<WorkflowTemplate> getAllTemplates();
 
-    WorkflowTemplate activateTemplate(Long id, boolean active);
+//     WorkflowTemplate activateTemplate(Long id, boolean active);
 
-    // 🔥 REQUIRED FOR TESTS
-    WorkflowTemplate updateTemplate(Long id, WorkflowTemplate template);
-}
+//     // 🔥 REQUIRED FOR TESTS
+//     WorkflowTemplate updateTemplate(Long id, WorkflowTemplate template);
+// }

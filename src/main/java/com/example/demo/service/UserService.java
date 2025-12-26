@@ -1,12 +1,12 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.model.User;
+// import com.example.demo.model.User;
 
-public interface UserService {
+// public interface UserService {
 
-    User registerUser(User user, String roleName);
+//     User registerUser(User user, String roleName);
 
-    User findByUsernameOrEmail(String value);
+//     User findByUsernameOrEmail(String value);
 
-    User findByUsername(String username);
-}
+//     User findByUsername(String username);
+// }
