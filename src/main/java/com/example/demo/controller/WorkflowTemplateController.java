@@ -30,14 +30,12 @@ public class WorkflowTemplateController {
     // ----------------------------------------------------
     // Get template by ID
     // ----------------------------------------------------
-    @GetMapping("/{id}")
-    public ResponseEntity<WorkflowTemplate> getTemplateById(
-            @PathVariable Long id) {
+ @GetMapping("/{id}")
+public ResponseEntity<WorkflowTemplate> getById(@PathVariable Long id) {
+    WorkflowTemplate template = workflowTemplateService.getById(id);
+    return ResponseEntity.ok(template);
+}
 
-        return workflowTemplateService.getTemplateById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
 
     // ----------------------------------------------------
     // Get all templates

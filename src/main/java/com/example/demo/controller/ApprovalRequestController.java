@@ -29,12 +29,12 @@ public class ApprovalRequestController {
     // ----------------------------------------------------
     // Get approval request by ID
     // ----------------------------------------------------
-    @GetMapping("/{id}")
-    public ResponseEntity<ApprovalRequest> getRequestById(@PathVariable Long id) {
-        return approvalRequestService.getRequestById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+   @GetMapping("/{id}")
+    public ResponseEntity<ApprovalRequest> getById(@PathVariable Long id) {
+    ApprovalRequest request = approvalRequestService.getById(id);
+    return ResponseEntity.ok(request);
+}
+
 
     // ----------------------------------------------------
     // Get all approval requests

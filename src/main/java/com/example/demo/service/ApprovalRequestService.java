@@ -15,4 +15,10 @@ public interface ApprovalRequestService {
     ApprovalRequest updateRequestStatus(Long requestId, String status);
 
     List<ApprovalRequest> getAllRequests();
+
+
+    ApprovalRequest getById(Long id);
+    void deleteRequest(Long id);
+}
+
 }
