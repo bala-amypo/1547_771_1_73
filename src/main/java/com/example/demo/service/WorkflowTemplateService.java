@@ -21,4 +21,4 @@ public interface WorkflowTemplateService {
     WorkflowTemplate activateTemplate(Long id, boolean active);
 }
 
-}
+
