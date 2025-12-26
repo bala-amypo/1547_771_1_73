@@ -1,37 +1,32 @@
 package com.example.demo.util;
 
 import com.example.demo.model.ApprovalAction;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import com.example.demo.repository.ApprovalActionRepository;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
+import org.springframework.transaction.annotation.Transactional;
+import jakarta.persistence.EntityManager;
 import java.util.List;
 
 @Component
+@Transactional
 public class HibernateQueryUtil {
-
-    @PersistenceContext
+    
+    @Autowired
     private EntityManager entityManager;
-
-    /**
-     * Required for testCriteriaFindActionsByApprover and testCriteriaEdgeCaseNullApprover.
-     * Uses Hibernate Criteria API (HCQL).
-     */
+    
     public List<ApprovalAction> findActionsByApproverUsingCriteria(Long approverId) {
         if (approverId == null) {
-            return new ArrayList<>();
+            return List.of();
         }
-
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ApprovalAction> query = cb.createQuery(ApprovalAction.class);
-        Root<ApprovalAction> root = query.from(ApprovalAction.class);
-
-        query.select(root).where(cb.equal(root.get("approverId"), approverId));
-
-        return entityManager.createQuery(query).getResultList();
+        
+        Session session = entityManager.unwrap(Session.class);
+        Query<ApprovalAction> query = session.createQuery(
+            "FROM ApprovalAction a WHERE a.approverId = :approverId", 
+            ApprovalAction.class);
+        query.setParameter("approverId", approverId);
+        return query.getResultList();
     }
 }

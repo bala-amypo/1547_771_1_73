@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.AuditLogRecord;
+import org.springframework.stereotype.Service;
 
-public interface AuditLogService {
-    void logEvent(Long requestId, String eventType, String details);
+@Service
+public class AuditLogService {
 }
