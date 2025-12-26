@@ -22,7 +22,7 @@ public class SwaggerConfig {
                         
                         new Server().url("http://localhost:9001"),
                         
-                        new Server().url("https://9379.408procr.amypo.ai/")
+                        new Server().url("https://9071.pro604cr.amypo.ai/")
                 ));
     }
 }
