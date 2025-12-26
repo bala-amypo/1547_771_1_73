@@ -15,4 +15,10 @@ public interface WorkflowStepConfigService {
     WorkflowStepConfig updateStep(Long id, WorkflowStepConfig stepConfig);
 
     void deleteStep(Long id);
+
+   
+    WorkflowStepConfig getById(Long id);
+    List<WorkflowStepConfig> getStepsByTemplate(Long templateId);
+
+
 }

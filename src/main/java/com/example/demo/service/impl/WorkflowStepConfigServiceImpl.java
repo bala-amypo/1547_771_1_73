@@ -48,4 +48,16 @@ public class WorkflowStepConfigServiceImpl implements WorkflowStepConfigService 
     public void deleteStep(Long id) {
         stepConfigRepository.deleteById(id);
     }
+@Override
+public WorkflowStepConfig getById(Long id) {
+    return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Step not found"));
+}
+
+@Override
+public List<WorkflowStepConfig> getStepsByTemplate(Long templateId) {
+    return repository.findByWorkflowTemplateIdOrderByStepOrder(templateId);
+}
+
+    
 }
