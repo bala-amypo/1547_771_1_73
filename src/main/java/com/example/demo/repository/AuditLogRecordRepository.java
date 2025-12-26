@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface AuditLogRecordRepository extends JpaRepository<AuditLogRecord, Long> {
-    // Required for testAuditLogQueryByRequestId
+    // Required for Section 4 and audit log persistence tests
     List<AuditLogRecord> findByRequestId(Long requestId);
 }

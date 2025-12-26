@@ -7,6 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    // Required for testManyToManyRoleNameUnique and User registration
+    // Required for Section 4 and testManyToManyRoleNameUnique
     Optional<Role> findByName(String name);
 }

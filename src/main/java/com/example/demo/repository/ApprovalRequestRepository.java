@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface ApprovalRequestRepository extends JpaRepository<ApprovalRequest, Long> {
-    // Required for testGetRequestsByRequester
+    // Required for filtering requests by requester in controllers and tests
     List<ApprovalRequest> findByRequesterId(Long requesterId);
 }

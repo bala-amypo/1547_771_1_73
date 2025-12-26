@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WorkflowTemplateRepository extends JpaRepository<WorkflowTemplate, Long> {
+    // Standard CRUD as required for Section 4
 }

@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface ApprovalActionRepository extends JpaRepository<ApprovalAction, Long> {
-    // Required for testHqlFindByLevelAndAction
+    // Required for Section 4 and HQL tests
     List<ApprovalAction> findByLevelAndAction(Integer levelNumber, String action);
 }

@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface WorkflowStepConfigRepository extends JpaRepository<WorkflowStepConfig, Long> {
-    // Required for testTemplateAndStepNormalization
+    // Required by Section 4 and Section 7
     List<WorkflowStepConfig> findByTemplateIdOrderByLevelNumberAsc(Long templateId);
 }

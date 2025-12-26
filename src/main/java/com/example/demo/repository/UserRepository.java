@@ -7,6 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    // Required for findByUsername logic in UserService and Security
+    // Required for security authentication flow and UserService
     Optional<User> findByUsername(String username);
 }
