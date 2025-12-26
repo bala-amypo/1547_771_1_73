@@ -44,4 +44,10 @@ public class ApprovalRequestServiceImpl implements ApprovalRequestService {
     public List<ApprovalRequest> getAllRequests() {
         return approvalRequestRepository.findAll();
     }
+
+    @Override
+public void deleteRequest(Long id) {
+    approvalRequestRepository.deleteById(id);
+}
+
 }
