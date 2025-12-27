@@ -5,48 +5,47 @@ import com.example.demo.model.User;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserServiceImpl(
+            UserRepository userRepository,
+            RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder
+    ) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public User registerUser(User user, String roleName) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        String finalRoleName = roleName.startsWith("ROLE_")
-                ? roleName
-                : "ROLE_" + roleName;
+        Role role = roleRepository.findByName(roleName)
+                .orElseGet(() -> roleRepository.save(new Role(roleName)));
 
-        Role role = roleRepository.findByName(finalRoleName)
-                .orElseGet(() -> roleRepository.save(new Role(finalRoleName)));
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
 
-        user.setRoles(Set.of(role));
         return userRepository.save(user);
     }
 
     @Override
-    public User findByUsernameOrEmail(String value) {
-        return userRepository.findByUsernameOrEmail(value, value)
-                .orElse(null);
-    }
-
-    @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
