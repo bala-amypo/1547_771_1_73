@@ -76,6 +76,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
@@ -100,11 +101,14 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
+    public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
 
-        // ✅ DO NOT call user.getRole()
-        // Role should be sent separately or defaulted
-        User saved = userService.registerUser(user, "USER");
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+
+        User saved = userService.registerUser(user, request.getRole());
 
         return ResponseEntity.ok(saved);
     }
@@ -121,7 +125,6 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // ✅ This now compiles because interface has the method
         User user = userService.findByUsernameOrEmail(
                 request.getUsernameOrEmail()
         );
