@@ -22,6 +22,5 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    // ✅ ADD THIS
     User findByUsernameOrEmail(String value);
 }
