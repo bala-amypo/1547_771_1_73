@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
-import com.example.demo.payload.JwtResponse;
-import com.example.demo.payload.LoginRequest;
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.payload.RegisterRequest;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
@@ -48,7 +48,7 @@ public class AuthController {
 
     // ================= LOGIN =================
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -63,9 +63,8 @@ public class AuthController {
                 request.getUsernameOrEmail()
         );
 
-        // ✅ FIXED: pass username (String), not User
         String token = jwtTokenProvider.generateToken(user.getUsername());
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 }
